@@ -1,4 +1,5 @@
 namespace MovieAppApi.Services;
+using MovieAppApi.Models;
 
 using RestSharp;
 using System.Threading.Tasks;

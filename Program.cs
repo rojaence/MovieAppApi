@@ -19,8 +19,8 @@ var movieService = new MovieService(restClient);
 app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/movies", async () => {
-  var data = await movieService.GetAll();
-  return data;
+  var res = await movieService.GetAll();
+  return res;
 });
 
 app.Run();
