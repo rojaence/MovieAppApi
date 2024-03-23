@@ -23,4 +23,14 @@ app.MapGet("/movies", async () => {
   return res;
 });
 
+app.MapGet("/trending/movies", async () => {
+  var res = await movieService.GetTrending();
+  return res;
+});
+
+app.MapGet("/popular/movies", async () => {
+  var res = await movieService.GetPopular();
+  return res;
+});
+
 app.Run();
