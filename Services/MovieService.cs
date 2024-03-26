@@ -11,9 +11,9 @@ public class MovieService(ApiClient restClient) : ApiServiceBase(restClient), IM
     return await GetFromEndpoint("/discover/movie");
   }
 
-  public async Task<MovieResponse> GetTrending(TimeWindow timeWindow = TimeWindow.day )
+  public async Task<MovieResponse> GetTrending(TimeWindow? timeWindow)
   {
-   return await GetFromEndpoint($"/trending/movie/{timeWindow}"); 
+   return await GetFromEndpoint($"/trending/movie/{timeWindow ?? TimeWindow.day}"); 
   }
   public async Task<MovieResponse> GetPopular()
   {

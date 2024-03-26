@@ -39,6 +39,6 @@ public interface IMediaResponse<TMedia>
 public interface IMediaService<TResponse>
 {
   Task<TResponse> GetAll();
-  Task<TResponse> GetTrending(TimeWindow timeWindow);
+  Task<TResponse> GetTrending(TimeWindow? timeWindow);
   Task<TResponse> GetPopular();
 }

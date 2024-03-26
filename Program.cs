@@ -1,5 +1,6 @@
 using MovieAppApi.Services;
 using MovieAppApi.EnvConfig;
+using MovieAppApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -23,8 +24,8 @@ app.MapGet("/movies", async () => {
   return res;
 });
 
-app.MapGet("/trending/movies", async () => {
-  var res = await movieService.GetTrending();
+app.MapGet("/trending/movies", async (TimeWindow? timeWindow) => {
+  var res = await movieService.GetTrending(timeWindow);
   return res;
 });
 
