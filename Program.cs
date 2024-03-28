@@ -16,21 +16,32 @@ ApiConfig config = new()
 
 var restClient = new ApiClient(config);
 var movieService = new MovieService(restClient);
+var tvService = new TvService(restClient);
 
 app.MapGet("/", () => "Hello World!");
 
-app.MapGet("/movies", async () => {
+app.MapGet("/movie", async () => {
   var res = await movieService.GetAll();
   return res;
 });
 
-app.MapGet("/trending/movies", async (TimeWindow? timeWindow) => {
+app.MapGet("/trending/movie", async (TimeWindowEnum? timeWindow) => {
   var res = await movieService.GetTrending(timeWindow);
   return res;
 });
 
-app.MapGet("/popular/movies", async () => {
+app.MapGet("/popular/movie", async () => {
   var res = await movieService.GetPopular();
+  return res;
+});
+
+app.MapGet("/tv", async () => {
+  var res = await tvService.GetAll();
+  return res;
+});
+
+app.MapGet("/trending/tv", async (TimeWindowEnum? timeWindow) => {
+  var res = await tvService.GetTrending(timeWindow);
   return res;
 });
 
