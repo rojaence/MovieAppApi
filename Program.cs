@@ -45,4 +45,9 @@ app.MapGet("/trending/tv", async (TimeWindowEnum? timeWindow) => {
   return res;
 });
 
+app.MapGet("/popular/tv", async () => {
+  var res = await tvService.GetPopular();
+  return res;
+});
+
 app.Run();
