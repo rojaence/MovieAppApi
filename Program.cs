@@ -3,8 +3,25 @@ using MovieAppApi.EnvConfig;
 using MovieAppApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+// CORS
+var movieAppCors = "_movieAppCors";
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy
+  (
+    name: movieAppCors,
+    policy => 
+    {
+      policy.WithOrigins("http://localhost:4200");
+    }
+  );
+});
 
+var app = builder.Build();
+// BASE API PATH
+app.UseRouting();
+app.UsePathBase("/api");
+app.UseCors(movieAppCors);
 DotEnv.Load();
 
 ApiConfig config = new()
