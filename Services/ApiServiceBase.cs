@@ -1,23 +1,16 @@
-using System.Text.Json;
-using MovieAppApi.Models;
-using RestSharp;
-
 namespace MovieAppApi.Services;
 
-public abstract class ApiServiceBase<TResponse>(ApiClient restClient)
+public abstract class ApiServiceBase()
 {
-  protected readonly ApiClient _restClient = restClient;
-  protected async Task<TResponse> GetFromEndpoint(string endpoint)
-  {
-    var result = await _restClient.GetAsync(endpoint);
-    var response = JsonSerializer.Deserialize<TResponse>(result);
-    return response!;
-  }
+  protected static readonly Lazy<ApiClient> restClientInstance = new(() => {
+    var config = new ApiConfig
+    {
+      BaseUrl = Environment.GetEnvironmentVariable("BASE_URL"),
+      ApiKey = Environment.GetEnvironmentVariable("API_KEY"),
+      BearerToken = Environment.GetEnvironmentVariable("BEARER_TOKEN")
+    };
+    return new ApiClient(config);
+  });
 
-  protected async Task<dynamic> GetFromEndpointDynamic(string endpoint) 
-  {
-  var result = await _restClient.GetAsync(endpoint);
-    var response = JsonSerializer.Deserialize<dynamic>(result);
-    return response!;
-  }
+  protected readonly ApiClient _restClient = restClientInstance.Value;
 }

@@ -1,20 +1,32 @@
 using MovieAppApi.Models;
-
+using System.Text.Json;
 namespace MovieAppApi.Services;
 
-public class MovieService(ApiClient restClient) : ApiServiceBase<MovieResponse>(restClient), IMediaService<MovieResponse>
+public class MovieService() : ApiServiceBase, IMediaService<MovieResponse>
 {
   public async Task<MovieResponse> GetAll()
   {
-    return await GetFromEndpoint("/discover/movie");
+    var result = await _restClient.GetAsync("/discover/movie");
+    var response = JsonSerializer.Deserialize<MovieResponse>(result);
+    return response!;
   }
 
   public async Task<MovieResponse> GetTrending(TimeWindowEnum? timeWindow)
   {
-   return await GetFromEndpoint($"/trending/movie/{timeWindow ?? TimeWindowEnum.day}"); 
+    var result = await _restClient.GetAsync($"/trending/movie/{timeWindow ?? TimeWindowEnum.day}");
+    var response = JsonSerializer.Deserialize<MovieResponse>(result);
+    return response!;
   }
   public async Task<MovieResponse> GetPopular()
   {
-   return await GetFromEndpoint("/movie/popular"); 
+    var result = await _restClient.GetAsync("/movie/popular");
+    var response = JsonSerializer.Deserialize<MovieResponse>(result);
+    return response!;
+  }
+
+  public async Task<MovieDetails> GetDetails(int id) {
+    var result = await _restClient.GetAsync($"/movie/{id}");
+    var response = JsonSerializer.Deserialize<MovieDetails>(result);
+    return response!;
   }
 }

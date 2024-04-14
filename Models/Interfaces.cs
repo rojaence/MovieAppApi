@@ -24,6 +24,38 @@ public interface IMovie : IMedia {
   public bool Video { get; set; }
 }
 
+public interface IMovieDetails<TCompany, TCountry, TLanguage> : IMovie {
+  Uri? Homepage { get; set; }
+  string? ImdbId { get; set; }
+  long Budget { get; set; }
+  List<TCompany>? ProductionCompanies { get; set; }
+  List<TCountry>? ProductionCountries { get; set; }
+  long Revenue { get; set; }
+  long Runtime { get; set; }
+  List<TLanguage>? SpokenLanguages { get; set; }
+  string? Status { get; set; }
+  string? Tagline { get; set; }
+}
+
+public interface IProductionCompany {
+  long Id { get; set;}
+  string? LogoPath { get; set;}
+  string? Name { get; set;}
+  string? OriginCountry { get; set;}
+
+}
+
+public interface IProductionCountry {
+  string? Iso3166_1 { get; set;}
+  string? Name { get; set;}
+}
+
+public interface ISpokenLanguage {
+  string? EnglishName { get; set;}
+  string? Iso639_1 { get; set;}
+  string? Name { get; set;}
+}
+
 public interface ITv : IMedia {
   public string? Name { get; set; }
   public string? OriginalName { get; set; }

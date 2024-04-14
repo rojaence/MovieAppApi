@@ -22,18 +22,11 @@ var app = builder.Build();
 app.UseRouting();
 app.UsePathBase("/api");
 app.UseCors(movieAppCors);
+// Load Env with API config params
 DotEnv.Load();
 
-ApiConfig config = new()
-{
-  BaseUrl = Environment.GetEnvironmentVariable("BASE_URL"),
-  ApiKey = Environment.GetEnvironmentVariable("API_KEY"),
-  BearerToken = Environment.GetEnvironmentVariable("BEARER_TOKEN")
-};
-
-var restClient = new ApiClient(config);
-var movieService = new MovieService(restClient);
-var tvService = new TvService(restClient);
+var movieService = new MovieService();
+var tvService = new TvService();
 
 app.MapGet("/", () => "Hello World!");
 
@@ -64,6 +57,11 @@ app.MapGet("/trending/tv", async (TimeWindowEnum? timeWindow) => {
 
 app.MapGet("/popular/tv", async () => {
   var res = await tvService.GetPopular();
+  return res;
+});
+
+app.MapGet("/movie/{id}", async (int id) => {
+  var res = await movieService.GetDetails(id);
   return res;
 });
 

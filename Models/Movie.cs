@@ -48,3 +48,27 @@ public class MovieResponse : IMediaResponse<Movie>
   [JsonPropertyName("total_results")]
   public int TotalResults { get; set; }
 }
+
+public class MovieDetails : Movie, IMovieDetails<ProductionCompany, ProductionCountry, SpokenLanguage>
+{
+  [JsonPropertyName("homepage")]
+  public Uri? Homepage { get; set; }
+  [JsonPropertyName("imdb_id")]
+  public string? ImdbId { get; set; }
+  [JsonPropertyName("budget")]
+  public long Budget { get; set; }
+  [JsonPropertyName("production_companies")]
+  public List<ProductionCompany>? ProductionCompanies { get; set; }
+  [JsonPropertyName("production_countries")]
+  public List<ProductionCountry>? ProductionCountries { get; set; }
+  [JsonPropertyName("revenue")]
+  public long Revenue { get; set; }
+  [JsonPropertyName("runtime")]
+  public long Runtime { get; set; }
+  [JsonPropertyName("spoken_languages")]
+  public List<SpokenLanguage>? SpokenLanguages { get; set; }
+  [JsonPropertyName("status")]
+  public string? Status { get; set; }
+  [JsonPropertyName("tagline")]
+  public string? Tagline { get; set; }
+}
