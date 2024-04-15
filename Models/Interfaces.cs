@@ -7,7 +7,6 @@ public interface IMedia
 {
     public bool Adult { get; set; }
     public string? BackdropPath { get; set; }
-    public List<int>? GenreIds { get; set; }
     public int Id { get; set; }
     public string? OriginalLanguage { get; set; }
     public string? Overview { get; set; }
@@ -17,14 +16,36 @@ public interface IMedia
     public int VoteCount { get; set; }
 }
 
-public interface IMovie : IMedia {
+public interface IWithGenres<TGenre> 
+{
+  public List<TGenre>? Genres { get; set; }
+}
+
+public interface IMovie : IMedia
+{
   public string? Title { get; set; }
   public string? OriginalTitle { get; set; }
   public DateTime ReleaseDate { get; set; }
   public bool Video { get; set; }
 }
 
-public interface IMovieDetails<TCompany, TCountry, TLanguage> : IMovie {
+public interface IGenre 
+{
+  public long Id { get; set; }
+  public string? Name { get; set; }
+}
+
+public interface ICollection 
+{
+  long Id { get; set; }
+  string? Name { get; set; }
+  string? PosterPath { get; set; }
+  string? BackdropPath { get; set; }
+
+}
+
+public interface IMovieDetails<TCompany, TCountry, TLanguage> : IMovie 
+{
   Uri? Homepage { get; set; }
   string? ImdbId { get; set; }
   long Budget { get; set; }

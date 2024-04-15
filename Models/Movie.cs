@@ -1,15 +1,16 @@
+using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 
 namespace MovieAppApi.Models;
 
-public class Movie : IMovie
+public class Movie : IMovie, IWithGenres<long>
 {
   [JsonPropertyName("adult")]
   public bool Adult { get; set; }
   [JsonPropertyName("backdrop_path")]
   public string? BackdropPath { get; set; }
   [JsonPropertyName("genre_ids")]
-  public List<int>? GenreIds { get; set; }
+  public List<long>? Genres { get; set; }
   [JsonPropertyName("id")]
   public int Id { get; set; }
   [JsonPropertyName("original_language")]
@@ -49,8 +50,34 @@ public class MovieResponse : IMediaResponse<Movie>
   public int TotalResults { get; set; }
 }
 
-public class MovieDetails : Movie, IMovieDetails<ProductionCompany, ProductionCountry, SpokenLanguage>
+public class MovieDetails : IMovie, IMovieDetails<ProductionCompany, ProductionCountry, SpokenLanguage>, IWithGenres<Genre>
 {
+  [JsonPropertyName("adult")]
+  public bool Adult { get; set; }
+  [JsonPropertyName("backdrop_path")]
+  public string? BackdropPath { get; set; }
+  [JsonPropertyName("id")]
+  public int Id { get; set; }
+  [JsonPropertyName("original_language")]
+  public string? OriginalLanguage { get; set; }
+  [JsonPropertyName("original_title")]
+  public string? OriginalTitle { get; set; }
+  [JsonPropertyName("overview")]
+  public string? Overview { get; set; }
+  [JsonPropertyName("popularity")]
+  public double Popularity { get; set; }
+  [JsonPropertyName("poster_path")]
+  public string? PosterPath { get; set; }
+  [JsonPropertyName("release_date")]
+  public DateTime ReleaseDate { get; set; }
+  [JsonPropertyName("title")]
+  public string? Title { get; set; }
+  [JsonPropertyName("vote_average")]
+  public double VoteAverage { get; set; }
+  [JsonPropertyName("vote_count")]
+  public int VoteCount { get; set; }
+  [JsonPropertyName("video")]
+  public bool Video { get; set; }
   [JsonPropertyName("homepage")]
   public Uri? Homepage { get; set; }
   [JsonPropertyName("imdb_id")]
@@ -71,4 +98,8 @@ public class MovieDetails : Movie, IMovieDetails<ProductionCompany, ProductionCo
   public string? Status { get; set; }
   [JsonPropertyName("tagline")]
   public string? Tagline { get; set; }
+  [JsonPropertyName("genres")]
+  public List<Genre>? Genres { get; set;}
+  [JsonPropertyName("belongs_to_collection")]
+  public Collection? BelongsToCollection { get; set; }
 }
