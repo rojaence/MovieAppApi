@@ -1,15 +1,15 @@
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace MovieAppApi.Models;
 
 public class Collection : ICollection
 {
-  [JsonPropertyName("id")]
+  [JsonProperty("id")]
   public long Id { get; set; }
-  [JsonPropertyName("name")]
+  [JsonProperty("name")]
   public string? Name { get; set; }
-  [JsonPropertyName("poster_path")]
+  [JsonProperty("poster_path")]
   public string? PosterPath { get; set; }
-  [JsonPropertyName("backdrop_path")]
+  [JsonProperty("backdrop_path")]
   public string? BackdropPath { get; set; }
 }

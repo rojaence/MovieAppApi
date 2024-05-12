@@ -1,27 +1,63 @@
+using MovieAppApi.Exceptions;
 using MovieAppApi.Models;
-using System.Text.Json;
+using RestSharp;
 
 namespace MovieAppApi.Services;
 
-public class TvService() : ApiServiceBase, IMediaService<TvResponse>
+public class TvService : ApiServiceBase, IMediaService
 {
-  public async Task<TvResponse> GetAll()
+  public async Task<IResult> GetAll()
   {
-    var result = await _restClient.GetAsync("/discover/tv");
-    var response = JsonSerializer.Deserialize<TvResponse>(result);
-    return response!;
+    try 
+    {
+      var request = new RestRequest("discover/tv");
+      var response = await HandleRequest<TvResponse>(request);
+      return Results.Ok(response);
+    }
+    catch (RequestException ex)
+    {
+      return Results.NotFound(ex.Message);
+    }
   }
 
-  public async Task<TvResponse> GetTrending(TimeWindowEnum? timeWindow)
+  public async Task<IResult> GetTrending(TimeWindowEnum? timeWindow)
   {
-    var result = await _restClient.GetAsync($"/trending/tv/{timeWindow ?? TimeWindowEnum.day}");
-    var response = JsonSerializer.Deserialize<TvResponse>(result);
-    return response!;
+    try 
+    {
+      var request = new RestRequest($"/trending/tv/{timeWindow ?? TimeWindowEnum.day}");
+      var response = await HandleRequest<TvResponse>(request);
+      return Results.Ok(response);
+    }
+    catch (RequestException ex)
+    {
+      return Results.NotFound(ex.Message);
+    }
   }
-  public async Task<TvResponse> GetPopular()
+  public async Task<IResult> GetPopular()  
   {
-    var result = await _restClient.GetAsync("/tv/popular");
-    var response = JsonSerializer.Deserialize<TvResponse>(result);
-    return response!;
+    try 
+    {
+      var request = new RestRequest("/tv/popular");
+      var response = await HandleRequest<TvResponse>(request);
+      return Results.Ok(response);
+    }
+    catch (RequestException ex)
+    {
+      return Results.NotFound(ex.Message);
+    }
+  }
+
+  public async Task<IResult> GetDetails(int id) 
+  {
+    try
+    {
+      var request = new RestRequest($"/tv/{id}");
+      var response = await HandleRequest<TvDetails>(request);
+      return Results.Ok(response);
+    } 
+    catch (RequestException ex)
+    {
+      return Results.NotFound(ex.Message);
+    }
   }
 }

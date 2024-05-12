@@ -1,32 +1,63 @@
-using MovieAppApi.Models;
-using System.Text.Json;
 namespace MovieAppApi.Services;
 
-public class MovieService() : ApiServiceBase, IMediaService<MovieResponse>
+using MovieAppApi.Exceptions;
+using MovieAppApi.Models;
+using RestSharp;
+
+public class MovieService : ApiServiceBase, IMediaService
 {
-  public async Task<MovieResponse> GetAll()
+  public async Task<IResult> GetAll()
   {
-    var result = await _restClient.GetAsync("/discover/movie");
-    var response = JsonSerializer.Deserialize<MovieResponse>(result);
-    return response!;
+    try 
+    {
+      var request = new RestRequest("/discover/movie");
+      var response = await HandleRequest<MovieResponse>(request);
+      return Results.Ok(response); 
+    } 
+    catch (RequestException ex) 
+    {
+      return Results.NotFound(ex.Message);
+    }
   }
 
-  public async Task<MovieResponse> GetTrending(TimeWindowEnum? timeWindow)
+  public async Task<IResult> GetTrending(TimeWindowEnum? timeWindow)
   {
-    var result = await _restClient.GetAsync($"/trending/movie/{timeWindow ?? TimeWindowEnum.day}");
-    var response = JsonSerializer.Deserialize<MovieResponse>(result);
-    return response!;
-  }
-  public async Task<MovieResponse> GetPopular()
-  {
-    var result = await _restClient.GetAsync("/movie/popular");
-    var response = JsonSerializer.Deserialize<MovieResponse>(result);
-    return response!;
+    try 
+    {
+      var request = new RestRequest($"/trending/movie/{timeWindow ?? TimeWindowEnum.day}");
+      var response = await HandleRequest<MovieResponse>(request);
+      return Results.Ok(response); 
+    } 
+    catch (RequestException ex) 
+    {
+      return Results.NotFound(ex.Message);
+    }
   }
 
-  public async Task<MovieDetails> GetDetails(int id) {
-    var result = await _restClient.GetAsync($"/movie/{id}");
-    var response = JsonSerializer.Deserialize<MovieDetails>(result);
-    return response!;
+  public async Task<IResult> GetPopular()
+  {
+    try 
+    {
+      var request = new RestRequest("/movie/popular");
+      var response = await HandleRequest<MovieResponse>(request);
+      return Results.Ok(response); 
+    } 
+    catch (RequestException ex) 
+    {
+      return Results.NotFound(ex.Message);
+    }
+  }
+
+  public async Task<IResult> GetDetails(int id) {
+    try 
+    {
+      var request = new RestRequest($"/movie/{id}");
+      var response = await HandleRequest<MovieDetails>(request);
+      return Results.Ok(response); 
+    } 
+    catch (RequestException ex) 
+    {
+      return Results.NotFound(ex.Message);
+    }
   }
 }

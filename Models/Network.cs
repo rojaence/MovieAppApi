@@ -2,14 +2,14 @@ using Newtonsoft.Json;
 
 namespace MovieAppApi.Models;
 
-public class ProductionCompany : IProductionCompany
+public class Network 
 {
   [JsonProperty("id")]
-  public long Id {  get; set; }
-  [JsonProperty("name")]
-  public string? Name { get; set; }
+  public int Id { get; set; }
   [JsonProperty("logo_path")]
   public string? LogoPath { get; set; }
+  [JsonProperty("name")]
+  public string? Name { get; set; }
   [JsonProperty("origin_country")]
   public string? OriginCountry { get; set; }
 }

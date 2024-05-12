@@ -1,105 +1,103 @@
-using System.Collections.ObjectModel;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace MovieAppApi.Models;
 
 public class Movie : IMovie, IWithGenres<long>
 {
-  [JsonPropertyName("adult")]
+  [JsonProperty("adult")]
   public bool Adult { get; set; }
-  [JsonPropertyName("backdrop_path")]
+  [JsonProperty("backdrop_path")]
   public string? BackdropPath { get; set; }
-  [JsonPropertyName("genre_ids")]
+  [JsonProperty("genre_ids")]
   public List<long>? Genres { get; set; }
-  [JsonPropertyName("id")]
+  [JsonProperty("id")]
   public int Id { get; set; }
-  [JsonPropertyName("original_language")]
+  [JsonProperty("original_language")]
   public string? OriginalLanguage { get; set; }
-  [JsonPropertyName("original_title")]
+  [JsonProperty("original_title")]
   public string? OriginalTitle { get; set; }
-  [JsonPropertyName("overview")]
+  [JsonProperty("overview")]
   public string? Overview { get; set; }
-  [JsonPropertyName("popularity")]
+  [JsonProperty("popularity")]
   public double Popularity { get; set; }
-  [JsonPropertyName("poster_path")]
+  [JsonProperty("poster_path")]
   public string? PosterPath { get; set; }
-  [JsonPropertyName("release_date")]
+  [JsonProperty("release_date")]
   public DateTime ReleaseDate { get; set; }
-  [JsonPropertyName("title")]
+  [JsonProperty("title")]
   public string? Title { get; set; }
-  [JsonPropertyName("vote_average")]
+  [JsonProperty("vote_average")]
   public double VoteAverage { get; set; }
-  [JsonPropertyName("vote_count")]
+  [JsonProperty("vote_count")]
   public int VoteCount { get; set; }
-  [JsonPropertyName("video")]
+  [JsonProperty("video")]
   public bool Video { get; set; }
-  [JsonPropertyName("media_type")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonProperty("media_type")]
   public MediaTypeEnum MediaType { get; set; }
 }
 
 public class MovieResponse : IMediaResponse<Movie>
 {
-  [JsonPropertyName("page")]
+  [JsonProperty("page")]
   public int Page { get; set; }
-  [JsonPropertyName("results")]
+  [JsonProperty("results")]
   public List<Movie>? Results { get; set; }
-  [JsonPropertyName("total_pages")]
+  [JsonProperty("total_pages")]
   public int TotalPages { get; set; }
-  [JsonPropertyName("total_results")]
+  [JsonProperty("total_results")]
   public int TotalResults { get; set; }
 }
 
 public class MovieDetails : IMovie, IMovieDetails<ProductionCompany, ProductionCountry, SpokenLanguage>, IWithGenres<Genre>
 {
-  [JsonPropertyName("adult")]
+  [JsonProperty("adult")]
   public bool Adult { get; set; }
-  [JsonPropertyName("backdrop_path")]
+  [JsonProperty("backdrop_path")]
   public string? BackdropPath { get; set; }
-  [JsonPropertyName("id")]
+  [JsonProperty("id")]
   public int Id { get; set; }
-  [JsonPropertyName("original_language")]
+  [JsonProperty("original_language")]
   public string? OriginalLanguage { get; set; }
-  [JsonPropertyName("original_title")]
+  [JsonProperty("original_title")]
   public string? OriginalTitle { get; set; }
-  [JsonPropertyName("overview")]
+  [JsonProperty("overview")]
   public string? Overview { get; set; }
-  [JsonPropertyName("popularity")]
+  [JsonProperty("popularity")]
   public double Popularity { get; set; }
-  [JsonPropertyName("poster_path")]
+  [JsonProperty("poster_path")]
   public string? PosterPath { get; set; }
-  [JsonPropertyName("release_date")]
+  [JsonProperty("release_date")]
   public DateTime ReleaseDate { get; set; }
-  [JsonPropertyName("title")]
+  [JsonProperty("title")]
   public string? Title { get; set; }
-  [JsonPropertyName("vote_average")]
+  [JsonProperty("vote_average")]
   public double VoteAverage { get; set; }
-  [JsonPropertyName("vote_count")]
+  [JsonProperty("vote_count")]
   public int VoteCount { get; set; }
-  [JsonPropertyName("video")]
+  [JsonProperty("video")]
   public bool Video { get; set; }
-  [JsonPropertyName("homepage")]
+  [JsonProperty("homepage")]
   public Uri? Homepage { get; set; }
-  [JsonPropertyName("imdb_id")]
+  [JsonProperty("imdb_id")]
   public string? ImdbId { get; set; }
-  [JsonPropertyName("budget")]
+  [JsonProperty("budget")]
   public long Budget { get; set; }
-  [JsonPropertyName("production_companies")]
+  [JsonProperty("production_companies")]
   public List<ProductionCompany>? ProductionCompanies { get; set; }
-  [JsonPropertyName("production_countries")]
+  [JsonProperty("production_countries")]
   public List<ProductionCountry>? ProductionCountries { get; set; }
-  [JsonPropertyName("revenue")]
+  [JsonProperty("revenue")]
   public long Revenue { get; set; }
-  [JsonPropertyName("runtime")]
+  [JsonProperty("runtime")]
   public long Runtime { get; set; }
-  [JsonPropertyName("spoken_languages")]
+  [JsonProperty("spoken_languages")]
   public List<SpokenLanguage>? SpokenLanguages { get; set; }
-  [JsonPropertyName("status")]
+  [JsonProperty("status")]
   public string? Status { get; set; }
-  [JsonPropertyName("tagline")]
+  [JsonProperty("tagline")]
   public string? Tagline { get; set; }
-  [JsonPropertyName("genres")]
+  [JsonProperty("genres")]
   public List<Genre>? Genres { get; set;}
-  [JsonPropertyName("belongs_to_collection")]
+  [JsonProperty("belongs_to_collection")]
   public Collection? BelongsToCollection { get; set; }
 }

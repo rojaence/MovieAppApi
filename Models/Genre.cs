@@ -1,11 +1,11 @@
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace MovieAppApi.Models;
 
 public class Genre : IGenre 
 {
-  [JsonPropertyName("id")]
+  [JsonProperty("id")]
   public long Id { get; set;}
-  [JsonPropertyName("name")]
+  [JsonProperty("name")]
   public string? Name { get; set;}
 }

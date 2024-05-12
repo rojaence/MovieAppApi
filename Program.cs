@@ -2,6 +2,9 @@ using MovieAppApi.Services;
 using MovieAppApi.EnvConfig;
 using MovieAppApi.Models;
 
+// Load Env with API config params
+DotEnv.Load();
+
 var builder = WebApplication.CreateBuilder(args);
 // CORS
 var movieAppCors = "_movieAppCors";
@@ -18,12 +21,11 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
 // BASE API PATH
 app.UseRouting();
 app.UsePathBase("/api");
 app.UseCors(movieAppCors);
-// Load Env with API config params
-DotEnv.Load();
 
 var movieService = new MovieService();
 var tvService = new TvService();
@@ -62,6 +64,11 @@ app.MapGet("/popular/tv", async () => {
 
 app.MapGet("/movie/{id}", async (int id) => {
   var res = await movieService.GetDetails(id);
+  return res;
+});
+
+app.MapGet("/tv/{id}", async (int id) => {
+  var res = await tvService.GetDetails(id);
   return res;
 });
 

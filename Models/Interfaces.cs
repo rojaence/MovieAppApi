@@ -81,7 +81,7 @@ public interface ITv : IMedia {
   public string? Name { get; set; }
   public string? OriginalName { get; set; }
   List<string>? OriginCountry { get; set; }
-  DateTime FirstAirDate { get; set; }
+  DateTime? FirstAirDate { get; set; }
 }
 
 public interface IMediaResponse<TMedia>
@@ -92,9 +92,9 @@ public interface IMediaResponse<TMedia>
   public int TotalResults { get; set; }
 }
 
-public interface IMediaService<TResponse>
+public interface IMediaService
 {
-  Task<TResponse> GetAll();
-  Task<TResponse> GetTrending(TimeWindowEnum? timeWindow);
-  Task<TResponse> GetPopular();
+  Task<IResult> GetAll();
+  Task<IResult> GetTrending(TimeWindowEnum? timeWindow);
+  Task<IResult> GetPopular();
 }
