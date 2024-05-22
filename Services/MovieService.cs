@@ -60,4 +60,17 @@ public class MovieService : ApiServiceBase, IMediaService
       return Results.NotFound(ex.Message);
     }
   }
+
+  public async Task<IResult> GetRecommendations(int id)
+  {
+    try {
+      var request = new RestRequest($"/movie/{id}/recommendations");
+      var response = await HandleRequest<MovieResponse>(request);
+      return Results.Ok(response);
+    } 
+    catch(RequestException ex)
+    {
+      return Results.NotFound(ex.Message);
+    }
+  }
 }

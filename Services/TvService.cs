@@ -60,4 +60,17 @@ public class TvService : ApiServiceBase, IMediaService
       return Results.NotFound(ex.Message);
     }
   }
+
+  public async Task<IResult> GetRecommendations(int id)
+  {
+    try {
+      var request = new RestRequest($"/tv/{id}/recommendations");
+      var response = await HandleRequest<TvResponse>(request);
+      return Results.Ok(response);
+    } 
+    catch(RequestException ex)
+    {
+      return Results.NotFound(ex.Message);
+    }
+  }
 }

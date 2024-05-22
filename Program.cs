@@ -67,8 +67,18 @@ app.MapGet("/movie/{id}", async (int id) => {
   return res;
 });
 
+app.MapGet("/movie/{id}/recommendations", async (int id) => {
+  var res = await movieService.GetRecommendations(id);
+  return res;
+});
+
 app.MapGet("/tv/{id}", async (int id) => {
   var res = await tvService.GetDetails(id);
+  return res;
+});
+
+app.MapGet("/tv/{id}/recommendations", async (int id) => {
+  var res = await tvService.GetRecommendations(id);
   return res;
 });
 
