@@ -25,7 +25,7 @@ public interface IMovie : IMedia
 {
   public string? Title { get; set; }
   public string? OriginalTitle { get; set; }
-  public DateTime ReleaseDate { get; set; }
+  public DateTime? ReleaseDate { get; set; }
   public bool Video { get; set; }
 }
 
