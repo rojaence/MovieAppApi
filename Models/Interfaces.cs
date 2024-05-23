@@ -99,4 +99,5 @@ public interface IMediaService
   Task<IResult> GetPopular();
   Task<IResult> GetRecommendations(int id);
   Task<IResult> GetDetails(int id);
+  Task<IResult> GetImageGallery(int id);
 }

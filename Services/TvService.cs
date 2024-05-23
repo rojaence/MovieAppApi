@@ -73,4 +73,17 @@ public class TvService : ApiServiceBase, IMediaService
       return Results.NotFound(ex.Message);
     }
   }
+
+  public async Task<IResult> GetImageGallery(int id)
+  {
+    try {
+      var request = new RestRequest($"/tv/{id}/images");
+      var response = await HandleRequest<ImageGallery>(request);
+      return Results.Ok(response);
+    }
+    catch(RequestException ex)
+    {
+      return Results.NotFound(ex.Message);
+    }
+  }
 }
