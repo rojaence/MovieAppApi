@@ -86,4 +86,17 @@ public class MovieService : ApiServiceBase, IMediaService
       return Results.NotFound(ex.Message);
     }
   }
+
+  public async Task<IResult> GetVideoGallery(int id)
+  {
+    try {
+      var request = new RestRequest($"/movie/{id}/videos");
+      var response = await HandleRequest<VideoGallery>(request);
+      return Results.Ok(response);
+    }
+    catch(RequestException ex)
+    {
+      return Results.NotFound(ex.Message);
+    }
+  }
 }
