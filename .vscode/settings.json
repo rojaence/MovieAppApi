@@ -19,5 +19,7 @@
     "titleBar.inactiveBackground": "#20163899",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.remoteColor": "rgb(32, 22, 56)"
+  "peacock.remoteColor": "rgb(32, 22, 56)",
+  "remote.autoForwardPortsFallback": 0,
+  "dotnet-test-explorer.testProjectPath": "tests/MovieAppApi.UnitTests"
 }
