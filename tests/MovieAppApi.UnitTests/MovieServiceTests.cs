@@ -101,5 +101,13 @@ public class MovieServiceTests
     var response = await Service.GetVideoGallery(10);
     Assert.IsType<NotFound<string>>(response);
   }
+
+  [Fact]
+  public async Task SearchMovies()
+  {
+    var response = await Service.Search("Shigatsu");
+    var movieResponse = Assert.IsType<Ok<MovieResponse>>(response);
+    Assert.NotEmpty(movieResponse.Value!.Results);
+  }
 }
 

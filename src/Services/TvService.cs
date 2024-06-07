@@ -99,4 +99,18 @@ public class TvService : ApiServiceBase, IMediaService
       return Results.NotFound(ex.Message);
     }
   }
+
+  public async Task<IResult> Search(string query)
+  {
+    try {
+      var request = new RestRequest("/search/tv");
+      request.AddParameter("query", query);
+      var response = await HandleRequest<TvResponse>(request);
+      return Results.Ok(response);
+    } 
+    catch (RequestException ex)
+    {
+      return Results.NotFound(ex.Message);
+    }
+  }
 }

@@ -101,5 +101,13 @@ public class TvServiceTests
     var response = await Service.GetVideoGallery(-1);
     Assert.IsType<NotFound<string>>(response);
   }
+
+  [Fact]
+  public async Task SearchTvSeries()
+  {
+    var response = await Service.Search("Shigatsu");
+    var tvResponse = Assert.IsType<Ok<TvResponse>>(response);
+    Assert.NotEmpty(tvResponse.Value!.Results);
+  }
 }
 

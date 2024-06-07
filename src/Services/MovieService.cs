@@ -99,4 +99,18 @@ public class MovieService : ApiServiceBase, IMediaService
       return Results.NotFound(ex.Message);
     }
   }
+
+  public async Task<IResult> Search(string query)
+  {
+    try {
+      var request = new RestRequest("/search/movie");
+      request.AddParameter("query", query);
+      var response = await HandleRequest<MovieResponse>(request);
+      return Results.Ok(response);
+    } 
+    catch (RequestException ex)
+    {
+      return Results.NotFound(ex.Message);
+    }
+  }
 }
