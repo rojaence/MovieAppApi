@@ -102,8 +102,13 @@ app.MapGet("/tv/{id}/videos", async (int id) => {
   return res;
 });
 
-app.MapGet("search/movie", async (string query) => {
-  var res = await movieService.Search(query);
+app.MapGet("search/movie", async (string query, int? page) => {
+  var res = await movieService.Search(query, page ?? 1);
+  return res;
+});
+
+app.MapGet("search/tv", async (string query, int? page) => {
+  var res = await tvService.Search(query, page ?? 1);
   return res;
 });
 

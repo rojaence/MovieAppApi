@@ -2,14 +2,14 @@ using Newtonsoft.Json;
 
 namespace MovieAppApi.Models;
 
-public class Tv : ITv
+public class Tv : ITv, IWithGenres<int>
 {
   [JsonProperty("adult")]
   public bool Adult { get; set; }
   [JsonProperty("backdrop_path")]
   public string? BackdropPath { get; set; }
   [JsonProperty("genre_ids")]
-  public List<int>? GenreIds { get; set; }
+  public List<int>? Genres { get; set; }
   [JsonProperty("id")]
   public int Id { get; set; }
   [JsonProperty("original_language")]

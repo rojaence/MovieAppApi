@@ -100,11 +100,12 @@ public class MovieService : ApiServiceBase, IMediaService
     }
   }
 
-  public async Task<IResult> Search(string query)
+  public async Task<IResult> Search(string query, int page = 1)
   {
     try {
       var request = new RestRequest("/search/movie");
       request.AddParameter("query", query);
+      request.AddParameter("page", page);
       var response = await HandleRequest<MovieResponse>(request);
       return Results.Ok(response);
     } 

@@ -100,11 +100,12 @@ public class TvService : ApiServiceBase, IMediaService
     }
   }
 
-  public async Task<IResult> Search(string query)
+  public async Task<IResult> Search(string query, int page = 1)
   {
     try {
       var request = new RestRequest("/search/tv");
       request.AddParameter("query", query);
+      request.AddParameter("page", page);
       var response = await HandleRequest<TvResponse>(request);
       return Results.Ok(response);
     } 

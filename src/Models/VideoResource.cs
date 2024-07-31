@@ -21,7 +21,7 @@ public class VideoResource
   [JsonProperty("official")]
   public bool Official { get; set; }
   [JsonProperty("published_at")]
-  public DateTime? PublisedAt { get; set; }
+  public DateTime? PublishedAt { get; set; }
   [JsonProperty("id")]
   public string? Id { get; set; }
 }

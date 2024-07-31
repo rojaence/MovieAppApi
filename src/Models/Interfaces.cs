@@ -101,5 +101,5 @@ public interface IMediaService
   Task<IResult> GetDetails(int id);
   Task<IResult> GetImageGallery(int id);
   Task<IResult> GetVideoGallery(int id);
-  Task<IResult> Search(string query);
+  Task<IResult> Search(string query, int page);
 }
