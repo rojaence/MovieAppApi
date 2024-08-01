@@ -32,8 +32,6 @@ public class Movie : IMovie, IWithGenres<long>
   public int VoteCount { get; set; }
   [JsonProperty("video")]
   public bool Video { get; set; }
-  [JsonProperty("media_type")]
-  public MediaTypeEnum MediaType { get; set; }
 }
 
 public class MovieResponse : IMediaResponse<Movie>

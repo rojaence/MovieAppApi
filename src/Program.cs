@@ -29,6 +29,7 @@ app.UseCors(movieAppCors);
 
 var movieService = new MovieService();
 var tvService = new TvService();
+var personService = new PersonService();
 
 app.MapGet("/", () => "Hello World!");
 
@@ -109,6 +110,16 @@ app.MapGet("search/movie", async (string query, int? page) => {
 
 app.MapGet("search/tv", async (string query, int? page) => {
   var res = await tvService.Search(query, page ?? 1);
+  return res;
+});
+
+app.MapGet("person/{id}", async (int id) => {
+  var res = await personService.GetDetails(id);
+  return res;
+});
+
+app.MapGet("search/person", async (string query, int? page) => {
+  var res = await personService.Search(query, page ?? 1);
   return res;
 });
 
