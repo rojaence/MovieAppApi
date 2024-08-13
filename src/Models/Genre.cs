@@ -9,3 +9,9 @@ public class Genre : IGenre
   [JsonProperty("name")]
   public string? Name { get; set;}
 }
+
+public class GenreResponse 
+{
+  [JsonProperty("genres")]
+  public List<Genre> Genres { get; } = [];
+}

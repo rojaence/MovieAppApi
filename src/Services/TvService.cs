@@ -19,6 +19,22 @@ public class TvService : ApiServiceBase, IMediaService
       return Results.NotFound(ex.Message);
     }
   }
+   public async Task<IResult> GetAll(int page = 1, string genres = "", string sortBy = "popularity.desc")
+  {
+    try 
+    {
+      var request = new RestRequest("discover/tv");
+      request.AddParameter("page", page);
+      request.AddParameter("with_genres", genres);
+      request.AddParameter("sort_by", sortBy);
+      var response = await HandleRequest<TvResponse>(request);
+      return Results.Ok(response);
+    }
+    catch (RequestException ex)
+    {
+      return Results.NotFound(ex.Message);
+    }
+  }
 
   public async Task<IResult> GetTrending(TimeWindowEnum? timeWindow)
   {
@@ -111,6 +127,16 @@ public class TvService : ApiServiceBase, IMediaService
     } 
     catch (RequestException ex)
     {
+      return Results.NotFound(ex.Message);
+    }
+  }
+
+  public async Task<IResult> GetGenres() {
+    try {
+      var request = new RestRequest("/genre/tv/list");
+      var response = await HandleRequest<GenreResponse>(request);
+      return Results.Ok(response);
+    } catch (RequestException ex) {
       return Results.NotFound(ex.Message);
     }
   }

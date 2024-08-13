@@ -95,6 +95,7 @@ public interface IMediaResponse<TMedia>
 public interface IMediaService
 {
   Task<IResult> GetAll();
+  Task<IResult> GetAll(int page, string genres, string sortBy);
   Task<IResult> GetTrending(TimeWindowEnum? timeWindow);
   Task<IResult> GetPopular();
   Task<IResult> GetRecommendations(int id);

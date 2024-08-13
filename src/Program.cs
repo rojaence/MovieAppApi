@@ -1,6 +1,7 @@
 using MovieAppApi.Services;
 using MovieAppApi.EnvConfig;
 using MovieAppApi.Models;
+using Microsoft.AspNetCore.Mvc;
 
 // Load Env with API config params
 DotEnv.Load();
@@ -33,8 +34,8 @@ var personService = new PersonService();
 
 app.MapGet("/", () => "Hello World!");
 
-app.MapGet("/movie", async () => {
-  var res = await movieService.GetAll();
+app.MapGet("/movie", async (int page, string genres, string sortBy) => { 
+  var res = await movieService.GetAll(page, genres, sortBy);
   return res;
 });
 
@@ -48,8 +49,8 @@ app.MapGet("/popular/movie", async () => {
   return res;
 });
 
-app.MapGet("/tv", async () => {
-  var res = await tvService.GetAll();
+app.MapGet("/tv", async (int page, string genres, string sortBy) => {
+  var res = await tvService.GetAll(page, genres, sortBy);
   return res;
 });
 
@@ -120,6 +121,26 @@ app.MapGet("person/{id}", async (int id) => {
 
 app.MapGet("search/person", async (string query, int? page) => {
   var res = await personService.Search(query, page ?? 1);
+  return res;
+});
+
+app.MapGet("person/{id}/credits/movie", async (int id) => { 
+  var res = await personService.GetMovieCredits(id);
+  return res;
+});
+
+app.MapGet("person/{id}/credits/tv", async (int id) => { 
+  var res = await personService.GetTvCredits(id);
+  return res;
+});
+
+app.MapGet("genre/movie", async () => { 
+  var res = await movieService.GetGenres();
+  return res;
+});
+
+app.MapGet("genre/tv", async () => { 
+  var res = await tvService.GetGenres();
   return res;
 });
 
