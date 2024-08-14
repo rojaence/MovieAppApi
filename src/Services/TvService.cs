@@ -50,11 +50,12 @@ public class TvService : ApiServiceBase, IMediaService
       return Results.NotFound(ex.Message);
     }
   }
-  public async Task<IResult> GetPopular()  
+  public async Task<IResult> GetPopular(int page = 1)  
   {
     try 
     {
       var request = new RestRequest("/tv/popular");
+      request.AddParameter("page", page);
       var response = await HandleRequest<TvResponse>(request);
       return Results.Ok(response);
     }

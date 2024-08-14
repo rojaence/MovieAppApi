@@ -52,11 +52,12 @@ public class MovieService : ApiServiceBase, IMediaService
     }
   }
 
-  public async Task<IResult> GetPopular()
+  public async Task<IResult> GetPopular(int page = 1)
   {
     try 
     {
       var request = new RestRequest("/movie/popular");
+      request.AddParameter("page", page);
       var response = await HandleRequest<MovieResponse>(request);
       return Results.Ok(response); 
     } 

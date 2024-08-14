@@ -44,8 +44,8 @@ app.MapGet("/trending/movie", async (TimeWindowEnum? timeWindow, int page) => {
   return res;
 });
 
-app.MapGet("/popular/movie", async () => {
-  var res = await movieService.GetPopular();
+app.MapGet("/popular/movie", async (int page = 1) => {
+  var res = await movieService.GetPopular(page);
   return res;
 });
 
@@ -59,8 +59,8 @@ app.MapGet("/trending/tv", async (TimeWindowEnum? timeWindow, int page) => {
   return res;
 });
 
-app.MapGet("/popular/tv", async () => {
-  var res = await tvService.GetPopular();
+app.MapGet("/popular/tv", async (int page = 1) => {
+  var res = await tvService.GetPopular(page);
   return res;
 });
 
@@ -141,6 +141,11 @@ app.MapGet("trending/person", async (TimeWindowEnum? timeWindow, int page) => {
 
 app.MapGet("genre/movie", async () => { 
   var res = await movieService.GetGenres();
+  return res;
+});
+
+app.MapGet("/popular/person", async (int page = 1) => {
+  var res = await personService.GetPopular(page);
   return res;
 });
 

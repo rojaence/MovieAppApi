@@ -34,6 +34,21 @@ public class PersonService : ApiServiceBase
     }
   }
 
+  public async Task<IResult> GetPopular(int page = 1)  
+  {
+    try 
+    {
+      var request = new RestRequest("/person/popular");
+      request.AddParameter("page", page);
+      var response = await HandleRequest<PersonResponse>(request);
+      return Results.Ok(response);
+    }
+    catch (RequestException ex)
+    {
+      return Results.NotFound(ex.Message);
+    }
+  }
+
   public async Task<IResult> Search(string query, int page = 1)
   {
     try {
