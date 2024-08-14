@@ -37,11 +37,12 @@ public class MovieService : ApiServiceBase, IMediaService
     }
   }
 
-  public async Task<IResult> GetTrending(TimeWindowEnum? timeWindow)
+  public async Task<IResult> GetTrending(TimeWindowEnum? timeWindow, int page = 1)
   {
     try 
     {
       var request = new RestRequest($"/trending/movie/{timeWindow ?? TimeWindowEnum.day}");
+      request.AddParameter("page", page);
       var response = await HandleRequest<MovieResponse>(request);
       return Results.Ok(response); 
     } 

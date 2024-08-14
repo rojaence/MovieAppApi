@@ -19,6 +19,21 @@ public class PersonService : ApiServiceBase
     }
   }
 
+  public async Task<IResult> GetTrending(TimeWindowEnum? timeWindow, int page = 1)
+  {
+    try 
+    {
+      var request = new RestRequest($"/trending/person/{timeWindow ?? TimeWindowEnum.day}");
+      request.AddParameter("page", page);
+      var response = await HandleRequest<PersonResponse>(request);
+      return Results.Ok(response);
+    }
+    catch (RequestException ex)
+    {
+      return Results.NotFound(ex.Message);
+    }
+  }
+
   public async Task<IResult> Search(string query, int page = 1)
   {
     try {

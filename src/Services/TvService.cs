@@ -36,11 +36,12 @@ public class TvService : ApiServiceBase, IMediaService
     }
   }
 
-  public async Task<IResult> GetTrending(TimeWindowEnum? timeWindow)
+  public async Task<IResult> GetTrending(TimeWindowEnum? timeWindow, int page = 1)
   {
     try 
     {
       var request = new RestRequest($"/trending/tv/{timeWindow ?? TimeWindowEnum.day}");
+      request.AddParameter("page", page);
       var response = await HandleRequest<TvResponse>(request);
       return Results.Ok(response);
     }

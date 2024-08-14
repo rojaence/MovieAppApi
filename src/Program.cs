@@ -39,8 +39,8 @@ app.MapGet("/movie", async (int page, string genres, string sortBy) => {
   return res;
 });
 
-app.MapGet("/trending/movie", async (TimeWindowEnum? timeWindow) => {
-  var res = await movieService.GetTrending(timeWindow);
+app.MapGet("/trending/movie", async (TimeWindowEnum? timeWindow, int page) => {
+  var res = await movieService.GetTrending(timeWindow, page);
   return res;
 });
 
@@ -54,8 +54,8 @@ app.MapGet("/tv", async (int page, string genres, string sortBy) => {
   return res;
 });
 
-app.MapGet("/trending/tv", async (TimeWindowEnum? timeWindow) => {
-  var res = await tvService.GetTrending(timeWindow);
+app.MapGet("/trending/tv", async (TimeWindowEnum? timeWindow, int page) => {
+  var res = await tvService.GetTrending(timeWindow, page);
   return res;
 });
 
@@ -131,6 +131,11 @@ app.MapGet("person/{id}/credits/movie", async (int id) => {
 
 app.MapGet("person/{id}/credits/tv", async (int id) => { 
   var res = await personService.GetTvCredits(id);
+  return res;
+});
+
+app.MapGet("trending/person", async (TimeWindowEnum? timeWindow, int page) => {
+  var res = await personService.GetTrending(timeWindow, page);
   return res;
 });
 
