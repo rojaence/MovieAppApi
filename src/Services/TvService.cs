@@ -1,24 +1,14 @@
+using Microsoft.AspNetCore.Mvc;
 using MovieAppApi.Exceptions;
 using MovieAppApi.Models;
 using RestSharp;
 
 namespace MovieAppApi.Services;
 
-public class TvService : ApiServiceBase, IMediaService
+[ApiController]
+[Route("tv")]
+public class TvService(IHttpContextAccessor httpContextAccessor) : ApiServiceBase(httpContextAccessor), IMediaService
 {
-  public async Task<IResult> GetAll()
-  {
-    try 
-    {
-      var request = new RestRequest("discover/tv");
-      var response = await HandleRequest<TvResponse>(request);
-      return Results.Ok(response);
-    }
-    catch (RequestException ex)
-    {
-      return Results.NotFound(ex.Message);
-    }
-  }
    public async Task<IResult> GetAll(int page = 1, string genres = "", string sortBy = "popularity.desc")
   {
     try 
@@ -36,6 +26,7 @@ public class TvService : ApiServiceBase, IMediaService
     }
   }
 
+  [Route("trending")]
   public async Task<IResult> GetTrending(TimeWindowEnum? timeWindow, int page = 1)
   {
     try 
@@ -50,6 +41,8 @@ public class TvService : ApiServiceBase, IMediaService
       return Results.NotFound(ex.Message);
     }
   }
+
+  [Route("popular")]
   public async Task<IResult> GetPopular(int page = 1)  
   {
     try 
@@ -65,6 +58,7 @@ public class TvService : ApiServiceBase, IMediaService
     }
   }
 
+  [Route("{id}")]
   public async Task<IResult> GetDetails(int id) 
   {
     try
@@ -79,6 +73,7 @@ public class TvService : ApiServiceBase, IMediaService
     }
   }
 
+  [Route("{id}/recommendations")]
   public async Task<IResult> GetRecommendations(int id)
   {
     try {
@@ -92,6 +87,7 @@ public class TvService : ApiServiceBase, IMediaService
     }
   }
 
+  [Route("{id}/images")]
   public async Task<IResult> GetImageGallery(int id)
   {
     try {
@@ -105,6 +101,7 @@ public class TvService : ApiServiceBase, IMediaService
     }
   }
 
+  [Route("{id}/videos")]
   public async Task<IResult> GetVideoGallery(int id)
   {
     try {
@@ -118,6 +115,7 @@ public class TvService : ApiServiceBase, IMediaService
     }
   }
 
+  [Route("search")]
   public async Task<IResult> Search(string query, int page = 1)
   {
     try {
@@ -132,7 +130,8 @@ public class TvService : ApiServiceBase, IMediaService
       return Results.NotFound(ex.Message);
     }
   }
-
+  
+  [Route("genres")]
   public async Task<IResult> GetGenres() {
     try {
       var request = new RestRequest("/genre/tv/list");

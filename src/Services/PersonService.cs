@@ -1,11 +1,15 @@
 namespace MovieAppApi.Services;
 
+using Microsoft.AspNetCore.Mvc;
 using MovieAppApi.Exceptions;
 using MovieAppApi.Models;
 using RestSharp;
 
-public class PersonService : ApiServiceBase
+[ApiController]
+[Route("person")]
+public class PersonService(IHttpContextAccessor httpContextAccessor) : ApiServiceBase(httpContextAccessor)
 {
+  [Route("{id}")]
   public async Task<IResult> GetDetails(int id)
   {
     try {
@@ -19,6 +23,7 @@ public class PersonService : ApiServiceBase
     }
   }
 
+  [Route("trending")]
   public async Task<IResult> GetTrending(TimeWindowEnum? timeWindow, int page = 1)
   {
     try 
@@ -34,6 +39,7 @@ public class PersonService : ApiServiceBase
     }
   }
 
+  [Route("popular")]
   public async Task<IResult> GetPopular(int page = 1)  
   {
     try 
@@ -49,6 +55,7 @@ public class PersonService : ApiServiceBase
     }
   }
 
+  [Route("search")]
   public async Task<IResult> Search(string query, int page = 1)
   {
     try {
@@ -64,10 +71,11 @@ public class PersonService : ApiServiceBase
     }
   }
 
-  public async Task<IResult> GetMovieCredits(int personId)
+  [Route("{id}/credits/movie")]
+  public async Task<IResult> GetMovieCredits(int id)
   {
     try {
-      var request = new RestRequest($"/person/{personId}/movie_credits");
+      var request = new RestRequest($"/person/{id}/movie_credits");
       var response = await HandleRequest<PersonMovieCredit>(request);
       return Results.Ok(response);
     }
@@ -77,11 +85,12 @@ public class PersonService : ApiServiceBase
     }
   }
 
-  public async Task<IResult> GetTvCredits(int personId)
+  [Route("{id}/credits/tv")]
+  public async Task<IResult> GetTvCredits(int id)
   {
     try
     {
-      var request = new RestRequest($"/person/{personId}/tv_credits");
+      var request = new RestRequest($"/person/{id}/tv_credits");
       var response = await HandleRequest<PersonTvCredit>(request);
       return Results.Ok(response);
 

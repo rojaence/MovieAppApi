@@ -7,6 +7,13 @@ namespace MovieAppApi.Services;
 
 public class ApiServiceBase
 {
+  private readonly IHttpContextAccessor _httpContextAccessor;
+
+  // Constructor que inyecta IHttpContextAccessor
+  public ApiServiceBase(IHttpContextAccessor httpContextAccessor)
+  {
+      _httpContextAccessor = httpContextAccessor;
+  }
 
   private static readonly Lazy<RestClient> restClientInstance = new(() => {
     var config = GetApiConfig();
@@ -30,6 +37,11 @@ public class ApiServiceBase
 
   protected async Task<TResponse> HandleRequest<TResponse>(RestRequest request)
   {
+    var language = _httpContextAccessor.HttpContext?.Items["language"]?.ToString();
+    if (!string.IsNullOrEmpty(language))
+    {
+      request.AddQueryParameter("language", language);
+    }
     var response = await _restClient.ExecuteAsync(request);
     if (!response.IsSuccessful)
     {

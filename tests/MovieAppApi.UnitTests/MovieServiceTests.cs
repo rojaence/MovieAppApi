@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using MovieAppApi.Services;
 using MovieAppApi.EnvConfig;
 using MovieAppApi.Models;
+using Microsoft.AspNetCore.Http;
+using Moq;
 
 namespace MovieAppApi.UnitTests;
 
@@ -9,11 +11,14 @@ public class MovieServiceTests
 {
 
   readonly MovieService Service;
+  readonly Mock<IHttpContextAccessor> _httpContextAccessorMock;
 
   public MovieServiceTests()
   {
     DotEnv.Load("/workspaces/MovieAppApiContainer/src");
-    Service = new MovieService();
+    _httpContextAccessorMock = new Mock<IHttpContextAccessor>();
+    _httpContextAccessorMock.Setup(x => x.HttpContext).Returns(new DefaultHttpContext());
+    Service = new MovieService(_httpContextAccessorMock.Object);
   }
 
   [Fact]
