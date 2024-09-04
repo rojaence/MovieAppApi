@@ -1,7 +1,5 @@
 using MovieAppApi.Services;
 using MovieAppApi.EnvConfig;
-using MovieAppApi.Models;
-using Microsoft.AspNetCore.Mvc;
 using MovieAppApi.middlewares;
 
 // Load Env with API config params
