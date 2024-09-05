@@ -2,8 +2,11 @@ using MovieAppApi.EnvConfig;
 using MovieAppApi.middlewares;
 using Microsoft.OpenApi.Models;
 
-// Load Env with API config params
-DotEnv.Load();
+var envMode = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+if (envMode == "Development") {
+  // Load Env with API config params
+  DotEnv.Load();
+}
 
 var builder = WebApplication.CreateBuilder(args);
 // CORS

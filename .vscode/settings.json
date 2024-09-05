@@ -21,5 +21,8 @@
   },
   "peacock.remoteColor": "rgb(32, 22, 56)",
   "remote.autoForwardPortsFallback": 0,
-  "dotnet-test-explorer.testProjectPath": "tests/MovieAppApi.UnitTests"
+  "dotnet-test-explorer.testProjectPath": "tests/MovieAppApi.UnitTests",
+  "appService.preDeployTask": "publish-release",
+  "appService.deploySubpath": "src/bin/Release/net8.0/publish",
+  "appService.defaultWebAppToDeploy": "/subscriptions/a21ff41e-536e-4020-ad56-3b9f732b662c/resourceGroups/MovieApp/providers/Microsoft.Web/sites/MovieApi"
 }
