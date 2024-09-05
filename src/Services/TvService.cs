@@ -9,6 +9,7 @@ namespace MovieAppApi.Services;
 [Route("tv")]
 public class TvService(IHttpContextAccessor httpContextAccessor) : ApiServiceBase(httpContextAccessor), IMediaService
 {
+  [HttpGet]
    public async Task<IResult> GetAll(int page = 1, string genres = "", string sortBy = "popularity.desc")
   {
     try 
@@ -26,6 +27,7 @@ public class TvService(IHttpContextAccessor httpContextAccessor) : ApiServiceBas
     }
   }
 
+  [HttpGet]
   [Route("trending")]
   public async Task<IResult> GetTrending(TimeWindowEnum? timeWindow, int page = 1)
   {
@@ -42,6 +44,7 @@ public class TvService(IHttpContextAccessor httpContextAccessor) : ApiServiceBas
     }
   }
 
+  [HttpGet]
   [Route("popular")]
   public async Task<IResult> GetPopular(int page = 1)  
   {
@@ -58,6 +61,7 @@ public class TvService(IHttpContextAccessor httpContextAccessor) : ApiServiceBas
     }
   }
 
+  [HttpGet]
   [Route("{id}")]
   public async Task<IResult> GetDetails(int id) 
   {
@@ -73,6 +77,7 @@ public class TvService(IHttpContextAccessor httpContextAccessor) : ApiServiceBas
     }
   }
 
+  [HttpGet]
   [Route("{id}/recommendations")]
   public async Task<IResult> GetRecommendations(int id)
   {
@@ -87,6 +92,7 @@ public class TvService(IHttpContextAccessor httpContextAccessor) : ApiServiceBas
     }
   }
 
+  [HttpGet]
   [Route("{id}/images")]
   public async Task<IResult> GetImageGallery(int id)
   {
@@ -101,6 +107,7 @@ public class TvService(IHttpContextAccessor httpContextAccessor) : ApiServiceBas
     }
   }
 
+  [HttpGet]
   [Route("{id}/videos")]
   public async Task<IResult> GetVideoGallery(int id)
   {
@@ -115,6 +122,7 @@ public class TvService(IHttpContextAccessor httpContextAccessor) : ApiServiceBas
     }
   }
 
+  [HttpGet]
   [Route("search")]
   public async Task<IResult> Search(string query, int page = 1)
   {
@@ -131,6 +139,7 @@ public class TvService(IHttpContextAccessor httpContextAccessor) : ApiServiceBas
     }
   }
   
+  [HttpGet]
   [Route("genres")]
   public async Task<IResult> GetGenres() {
     try {

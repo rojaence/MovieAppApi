@@ -9,6 +9,7 @@ using RestSharp;
 [Route("person")]
 public class PersonService(IHttpContextAccessor httpContextAccessor) : ApiServiceBase(httpContextAccessor)
 {
+  [HttpGet]
   [Route("{id}")]
   public async Task<IResult> GetDetails(int id)
   {
@@ -23,6 +24,7 @@ public class PersonService(IHttpContextAccessor httpContextAccessor) : ApiServic
     }
   }
 
+  [HttpGet]
   [Route("trending")]
   public async Task<IResult> GetTrending(TimeWindowEnum? timeWindow, int page = 1)
   {
@@ -39,6 +41,7 @@ public class PersonService(IHttpContextAccessor httpContextAccessor) : ApiServic
     }
   }
 
+  [HttpGet]
   [Route("popular")]
   public async Task<IResult> GetPopular(int page = 1)  
   {
@@ -55,6 +58,7 @@ public class PersonService(IHttpContextAccessor httpContextAccessor) : ApiServic
     }
   }
 
+  [HttpGet]
   [Route("search")]
   public async Task<IResult> Search(string query, int page = 1)
   {
@@ -71,6 +75,7 @@ public class PersonService(IHttpContextAccessor httpContextAccessor) : ApiServic
     }
   }
 
+  [HttpGet]
   [Route("{id}/credits/movie")]
   public async Task<IResult> GetMovieCredits(int id)
   {
@@ -85,6 +90,7 @@ public class PersonService(IHttpContextAccessor httpContextAccessor) : ApiServic
     }
   }
 
+  [HttpGet]
   [Route("{id}/credits/tv")]
   public async Task<IResult> GetTvCredits(int id)
   {

@@ -1,5 +1,6 @@
 using MovieAppApi.EnvConfig;
 using MovieAppApi.middlewares;
+using Microsoft.OpenApi.Models;
 
 // Load Env with API config params
 DotEnv.Load();
@@ -23,6 +24,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
 
+builder.Services.AddMvc();
+builder.Services.AddSwaggerGen(c => {
+  c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieAppApi", Version = "v1"});
+});
+builder.Services.AddSwaggerGenNewtonsoftSupport();
+
+
 var app = builder.Build();
 
 // BASE API PATH
@@ -30,6 +38,7 @@ app.UseRouting();
 app.UsePathBase("/api");
 app.UseCors(movieAppCors);
 app.UseMiddleware<LanguageMiddleware>();
+
 app.MapControllers();
                                       
 app.MapGet("/", async context => 
@@ -42,5 +51,8 @@ app.MapGet("/", async context =>
   "Hello, welcome to MovieAppApi by Ronny Endara. This product uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.";
   await context.Response.WriteAsync(message);
 });
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.Run();
