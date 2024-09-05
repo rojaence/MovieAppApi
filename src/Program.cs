@@ -1,4 +1,3 @@
-using MovieAppApi.Services;
 using MovieAppApi.EnvConfig;
 using MovieAppApi.middlewares;
 
@@ -15,16 +14,13 @@ builder.Services.AddCors(options =>
     name: movieAppCors,
     policy => 
     {
-      policy.WithOrigins("http://localhost:4200");
+      policy.WithOrigins(Environment.GetEnvironmentVariable("CLIENT_URL")!);
     }
   );
 });
 
 // Agregar servicios
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<MovieService>();
-builder.Services.AddScoped<TvService>();
-builder.Services.AddScoped<PersonService>();
 builder.Services.AddControllers();
 
 var app = builder.Build();

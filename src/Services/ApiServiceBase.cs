@@ -1,4 +1,3 @@
-using System.Net;
 using MovieAppApi.Exceptions;
 using Newtonsoft.Json;
 using RestSharp;
