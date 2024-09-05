@@ -31,7 +31,7 @@ app.UsePathBase("/api");
 app.UseCors(movieAppCors);
 app.UseMiddleware<LanguageMiddleware>();
 app.MapControllers();
-
+                                      
 app.MapGet("/", async context => 
 {
   var language = context.Request.Headers.AcceptLanguage.ToString().ToLower();
