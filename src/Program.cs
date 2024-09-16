@@ -3,6 +3,7 @@ using MovieAppApi.middlewares;
 using Microsoft.OpenApi.Models;
 
 var envMode = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
 if (envMode == "Development") {
   // Load Env with API config params
   DotEnv.Load();
@@ -11,17 +12,35 @@ if (envMode == "Development") {
 var builder = WebApplication.CreateBuilder(args);
 // CORS
 var movieAppCors = "_movieAppCors";
-builder.Services.AddCors(options =>
-{
-  options.AddPolicy
-  (
-    name: movieAppCors,
-    policy => 
-    {
-      policy.WithOrigins(Environment.GetEnvironmentVariable("CLIENT_URL")!);
-    }
-  );
-});
+
+if (envMode == "Development") {
+  builder.Services.AddCors(options => 
+  {
+    options.AddPolicy
+    (
+      name: movieAppCors,
+      policy => 
+      {
+        policy.WithOrigins("http://localhost:4000");
+        policy.WithOrigins("http://localhost:4001");
+        policy.WithOrigins("http://localhost:4200");
+      }
+    );
+  });
+} else {
+  builder.Services.AddCors(options =>
+  {
+    options.AddPolicy
+    (
+      name: movieAppCors,
+      policy => 
+      {
+        policy.WithOrigins(Environment.GetEnvironmentVariable("CLIENT_URL_ES")!);
+        policy.WithOrigins(Environment.GetEnvironmentVariable("CLIENT_URL_EN")!);
+      }
+    );
+  });
+}
 
 // Agregar servicios
 builder.Services.AddHttpContextAccessor();
